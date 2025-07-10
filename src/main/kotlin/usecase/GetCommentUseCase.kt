@@ -3,8 +3,7 @@ package usecase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-
-data class CommentData(val text: String, val isSpecial: Boolean = false)
+import model.CommentData
 
 class GetCommentUseCase {
     fun execute(): Flow<CommentData> = flow {

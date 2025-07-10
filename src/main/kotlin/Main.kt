@@ -23,7 +23,8 @@ fun main() = application {
         state = state,
         undecorated = true,
         transparent = true,
-        focusable = false
+        focusable = false,
+        alwaysOnTop = true
     ) {
         App()
     }

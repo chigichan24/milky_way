@@ -1,18 +1,13 @@
 package ui
 
-import androidx.compose.animation.core.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import usecase.GetCommentUseCase
 import kotlin.random.Random
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.window.WindowState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -71,39 +66,4 @@ fun RootScreen(windowState: WindowState) {
             }
         }
     }
-}
-
-@Composable
-fun SpecialCommentItem(comment: Comment) {
-    Text(
-        text = comment.text,
-        fontSize = 30.sp,
-        color = Color.Red,
-        modifier = Modifier
-            .padding(vertical = 4.dp) // Add some vertical padding for stacking
-            .wrapContentSize()
-    )
-}
-
-@Composable
-fun CommentItem(comment: Comment, screenWidthPx: Float, onAnimationEnd: () -> Unit) {
-    val xOffset = remember { Animatable(screenWidthPx) }
-    val textWidthEstimate = comment.text.length * 10.dp.value * LocalDensity.current.density // Rough estimate
-
-    LaunchedEffect(comment.id) {
-        xOffset.animateTo(
-            targetValue = -textWidthEstimate, // Animate until it's off-screen
-            animationSpec = tween(durationMillis = 10000, easing = LinearEasing)
-        )
-        onAnimationEnd() // Call callback when animation is complete
-    }
-
-    Text(
-        text = comment.text,
-        fontSize = 30.sp,
-        color = Color.White,
-        modifier = Modifier
-            .offset(x = xOffset.value.dp, y = comment.yOffset.dp)
-            .wrapContentSize()
-    )
 }

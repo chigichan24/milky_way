@@ -11,9 +11,7 @@ import kotlin.random.Random
 import androidx.compose.ui.window.WindowState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-
-// Comment data class, now with a unique ID and initial position
-data class Comment(val id: Long, val text: String, val yOffset: Float, val isSpecial: Boolean = false)
+import model.Comment
 
 @Composable
 fun RootScreen(windowState: WindowState, modifier: Modifier = Modifier) {
@@ -32,7 +30,7 @@ fun RootScreen(windowState: WindowState, modifier: Modifier = Modifier) {
                 specialComments.add(newSpecialComment)
                 // Remove after a delay
                 launch { 
-                    delay(5000L) // Display for 5 seconds
+                    delay(10_000L) // Display for 5 seconds
                     specialComments.remove(newSpecialComment)
                 }
             } else {

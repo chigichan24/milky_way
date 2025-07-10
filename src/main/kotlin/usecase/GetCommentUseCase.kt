@@ -15,6 +15,10 @@ class GetCommentUseCase {
             CommentData("Random height, right to left."),
             CommentData("Another comment here."),
             CommentData("SPECIAL_COMMENT: This is a red message!", isSpecial = true),
+            CommentData("SPECIAL_COMMENT: This is a red message!!", isSpecial = true),
+            CommentData("SPECIAL_COMMENT: This is a red message!!!", isSpecial = true),
+            CommentData("SPECIAL_COMMENT: This is a red message!!!!", isSpecial = true),
+            CommentData("SPECIAL_COMMENT: This is a red message!!!!!", isSpecial = true),
             CommentData("Yet another flowing comment."),
             CommentData("SPECIAL_COMMENT: New red message on top!", isSpecial = true)
         )

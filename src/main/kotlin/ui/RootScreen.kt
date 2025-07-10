@@ -57,7 +57,10 @@ fun RootScreen(windowState: WindowState, modifier: Modifier = Modifier) {
         }
 
         // Display special comments at the bottom center, stacked
-        Column(modifier = Modifier.align(Alignment.BottomCenter)) {
+        Column(
+            modifier = Modifier.align(Alignment.BottomCenter),
+            verticalArrangement = Arrangement.Bottom
+        ) {
             specialComments.forEachIndexed { index, comment ->
                 key(comment.id) {
                     SpecialCommentItem(comment = comment, modifier = Modifier)

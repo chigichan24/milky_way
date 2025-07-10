@@ -4,6 +4,7 @@ import androidx.compose.animation.core.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 import androidx.compose.ui.platform.LocalDensity
@@ -13,13 +14,16 @@ import usecase.GetCommentUseCase
 import kotlin.random.Random
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.window.WindowState
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 // Comment data class, now with a unique ID and initial position
-data class Comment(val id: Long, val text: String, val yOffset: Float)
+data class Comment(val id: Long, val text: String, val yOffset: Float, val isSpecial: Boolean = false)
 
 @Composable
 fun RootScreen(windowState: WindowState) {
-    val comments = remember { mutableStateListOf<Comment>() }
+    val scrollingComments = remember { mutableStateListOf<Comment>() }
+    val specialComments = remember { mutableStateListOf<Comment>() }
     val getCommentUseCase = remember { GetCommentUseCase() }
     val density = LocalDensity.current.density
     val screenWidthPx = windowState.size.width.value * density
@@ -27,27 +31,58 @@ fun RootScreen(windowState: WindowState) {
 
     // Collect new comments from the use case
     LaunchedEffect(Unit) {
-        getCommentUseCase.execute().collect { newCommentText ->
-            val randomY = Random.nextFloat() * (screenHeightPx - 50.dp.value * density).coerceAtLeast(0f) // Ensure positive height
-            comments.add(Comment(System.nanoTime(), newCommentText, randomY))
+        getCommentUseCase.execute().collect { commentData ->
+            if (commentData.isSpecial) {
+                val newSpecialComment = Comment(System.nanoTime(), commentData.text, 0f, true)
+                specialComments.add(newSpecialComment)
+                // Remove after a delay
+                launch { 
+                    delay(5000L) // Display for 5 seconds
+                    specialComments.remove(newSpecialComment)
+                }
+            } else {
+                val randomY = Random.nextFloat() * (screenHeightPx - 50.dp.value * density).coerceAtLeast(0f) // Ensure positive height
+                scrollingComments.add(Comment(System.nanoTime(), commentData.text, randomY))
+            }
         }
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
         // Use a key for each CommentItem to ensure proper recomposition and animation
-        comments.forEach { comment ->
+        scrollingComments.forEach { comment ->
             key(comment.id) {
                 CommentItem(
                     comment = comment,
                     screenWidthPx = screenWidthPx,
                     onAnimationEnd = {
                         // Remove the comment from the list when its animation finishes
-                        comments.remove(comment)
+                        scrollingComments.remove(comment)
                     }
                 )
             }
         }
+
+        // Display special comments at the bottom center, stacked
+        Column(modifier = Modifier.align(Alignment.BottomCenter)) {
+            specialComments.forEachIndexed { index, comment ->
+                key(comment.id) {
+                    SpecialCommentItem(comment = comment)
+                }
+            }
+        }
     }
+}
+
+@Composable
+fun SpecialCommentItem(comment: Comment) {
+    Text(
+        text = comment.text,
+        fontSize = 30.sp,
+        color = Color.Red,
+        modifier = Modifier
+            .padding(vertical = 4.dp) // Add some vertical padding for stacking
+            .wrapContentSize()
+    )
 }
 
 @Composable

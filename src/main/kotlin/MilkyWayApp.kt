@@ -1,6 +1,9 @@
+import androidx.compose.foundation.border
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.WindowState
@@ -12,7 +15,7 @@ import ui.RootScreen
 @Composable
 fun MilkyWayApp(windowState: WindowState) {
     MaterialTheme(colors = MaterialTheme.colors.copy(background = Color.Transparent)) {
-        RootScreen(windowState)
+        RootScreen(windowState, modifier = Modifier.border(0.5.dp, Color.Gray))
     }
 }
 

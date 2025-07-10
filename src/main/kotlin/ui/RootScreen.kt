@@ -58,14 +58,14 @@ fun CommentItem(comment: Comment, screenWidthPx: Float, onAnimationEnd: () -> Un
     LaunchedEffect(comment.id) {
         xOffset.animateTo(
             targetValue = -textWidthEstimate, // Animate until it's off-screen
-            animationSpec = tween(durationMillis = 5000, easing = LinearEasing)
+            animationSpec = tween(durationMillis = 10000, easing = LinearEasing)
         )
         onAnimationEnd() // Call callback when animation is complete
     }
 
     Text(
         text = comment.text,
-        fontSize = 20.sp,
+        fontSize = 30.sp,
         color = Color.White,
         modifier = Modifier
             .offset(x = xOffset.value.dp, y = comment.yOffset.dp)

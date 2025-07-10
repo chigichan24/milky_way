@@ -21,7 +21,7 @@ fun MilkyWayApp(windowState: WindowState) {
 }
 
 fun main() = application {
-    val screenSize: Dimension = Toolkit.getDefaultToolkit().getScreenSize()
+    val screenSize: Dimension = Toolkit.getDefaultToolkit().screenSize
     val screenHeight = screenSize.height
     val screenWidth = screenSize.width
 

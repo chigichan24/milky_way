@@ -14,7 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import model.Comment
+import ui.model.Comment
 
 @Composable
 fun CommentItem(comment: Comment, screenWidthPx: Float, onAnimationEnd: () -> Unit, modifier: Modifier = Modifier) {

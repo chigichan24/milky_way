@@ -11,7 +11,7 @@ import kotlin.random.Random
 import androidx.compose.ui.window.WindowState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import model.Comment
+import ui.model.Comment
 
 @Composable
 fun RootScreen(windowState: WindowState, modifier: Modifier = Modifier) {

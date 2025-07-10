@@ -9,7 +9,7 @@ import string.StringProvider
 import ui.RootScreen
 
 @Composable
-fun App() {
+fun MilkyWayApp() {
     MaterialTheme(colors = MaterialTheme.colors.copy(background = Color.Transparent)) {
         RootScreen()
     }
@@ -26,6 +26,6 @@ fun main() = application {
         focusable = false,
         alwaysOnTop = true
     ) {
-        App()
+        MilkyWayApp()
     }
 }

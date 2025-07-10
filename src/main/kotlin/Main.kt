@@ -22,7 +22,8 @@ fun main() = application {
         title = StringProvider.appName,
         state = state,
         undecorated = true,
-        transparent = true
+        transparent = true,
+        focusable = false
     ) {
         App()
     }

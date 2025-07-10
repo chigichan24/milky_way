@@ -8,10 +8,12 @@ import androidx.compose.ui.window.rememberWindowState
 import string.StringProvider
 import ui.RootScreen
 
+import androidx.compose.ui.window.WindowState
+
 @Composable
-fun MilkyWayApp() {
+fun MilkyWayApp(windowState: WindowState) {
     MaterialTheme(colors = MaterialTheme.colors.copy(background = Color.Transparent)) {
-        RootScreen()
+        RootScreen(windowState)
     }
 }
 
@@ -26,6 +28,6 @@ fun main() = application {
         focusable = false,
         alwaysOnTop = true
     ) {
-        MilkyWayApp()
+        MilkyWayApp(state)
     }
 }

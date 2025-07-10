@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
+
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -13,17 +13,18 @@ import kotlinx.coroutines.launch
 import usecase.GetCommentUseCase
 import kotlin.random.Random
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.window.WindowState
 
 // Comment data class, now with a unique ID and initial position
 data class Comment(val id: Long, val text: String, val yOffset: Float)
 
 @Composable
-fun RootScreen() {
+fun RootScreen(windowState: WindowState) {
     val comments = remember { mutableStateListOf<Comment>() }
     val getCommentUseCase = remember { GetCommentUseCase() }
     val density = LocalDensity.current.density
-    val screenWidthPx = LocalConfiguration.current.screenWidthDp.dp.value * density
-    val screenHeightPx = LocalConfiguration.current.screenHeightDp.dp.value * density
+    val screenWidthPx = windowState.size.width.value * density
+    val screenHeightPx = windowState.size.height.value * density
 
     // Collect new comments from the use case
     LaunchedEffect(Unit) {

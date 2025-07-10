@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun CommentItem(comment: Comment, screenWidthPx: Float, onAnimationEnd: () -> Unit) {
+fun CommentItem(comment: Comment, screenWidthPx: Float, onAnimationEnd: () -> Unit, modifier: Modifier = Modifier) {
     val xOffset = remember { Animatable(screenWidthPx) }
     val textWidthEstimate = comment.text.length * 10.dp.value * LocalDensity.current.density // Rough estimate
 
@@ -32,7 +32,7 @@ fun CommentItem(comment: Comment, screenWidthPx: Float, onAnimationEnd: () -> Un
         text = comment.text,
         fontSize = 30.sp,
         color = Color.White,
-        modifier = Modifier
+        modifier = modifier
             .offset(x = xOffset.value.dp, y = comment.yOffset.dp)
             .wrapContentSize()
     )

@@ -10,12 +10,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun SpecialCommentItem(comment: Comment) {
+fun SpecialCommentItem(comment: Comment, modifier: Modifier = Modifier) {
     Text(
         text = comment.text,
         fontSize = 30.sp,
         color = Color.Red,
-        modifier = Modifier
+        modifier = modifier
             .padding(vertical = 4.dp) // Add some vertical padding for stacking
             .wrapContentSize()
     )

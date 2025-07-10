@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 data class Comment(val id: Long, val text: String, val yOffset: Float, val isSpecial: Boolean = false)
 
 @Composable
-fun RootScreen(windowState: WindowState) {
+fun RootScreen(windowState: WindowState, modifier: Modifier = Modifier) {
     val scrollingComments = remember { mutableStateListOf<Comment>() }
     val specialComments = remember { mutableStateListOf<Comment>() }
     val getCommentUseCase = remember { GetCommentUseCase() }
@@ -42,7 +42,7 @@ fun RootScreen(windowState: WindowState) {
         }
     }
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = modifier.fillMaxSize()) {
         // Use a key for each CommentItem to ensure proper recomposition and animation
         scrollingComments.forEach { comment ->
             key(comment.id) {
@@ -52,7 +52,8 @@ fun RootScreen(windowState: WindowState) {
                     onAnimationEnd = {
                         // Remove the comment from the list when its animation finishes
                         scrollingComments.remove(comment)
-                    }
+                    },
+                    modifier = Modifier
                 )
             }
         }
@@ -61,7 +62,7 @@ fun RootScreen(windowState: WindowState) {
         Column(modifier = Modifier.align(Alignment.BottomCenter)) {
             specialComments.forEachIndexed { index, comment ->
                 key(comment.id) {
-                    SpecialCommentItem(comment = comment)
+                    SpecialCommentItem(comment = comment, modifier = Modifier)
                 }
             }
         }

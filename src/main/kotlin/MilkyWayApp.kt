@@ -10,19 +10,22 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import server.CommentServer
 import string.StringProvider
 import ui.RootScreen
+import usecase.GetCommentUseCase
 
 @Composable
-fun MilkyWayApp(windowState: WindowState) {
+fun MilkyWayApp(windowState: WindowState, getCommentUseCase: GetCommentUseCase) {
     MaterialTheme(colors = MaterialTheme.colors.copy(background = Color.Transparent)) {
-        RootScreen(windowState, modifier = Modifier.border(0.5.dp, Color.Gray))
+        RootScreen(windowState, getCommentUseCase, modifier = Modifier.border(0.5.dp, Color.Gray))
     }
 }
 
 fun main() = application {
-    val commentServer = server.CommentServer()
+    val commentServer = CommentServer()
     commentServer.start()
+    val getCommentUseCase = GetCommentUseCase(commentServer)
 
     val screenSize: Dimension = Toolkit.getDefaultToolkit().screenSize
     val screenHeight = screenSize.height
@@ -44,6 +47,6 @@ fun main() = application {
         focusable = false,
         alwaysOnTop = true
     ) {
-        MilkyWayApp(state)
+        MilkyWayApp(state, getCommentUseCase)
     }
 }

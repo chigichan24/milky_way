@@ -14,10 +14,13 @@ import kotlinx.coroutines.launch
 import ui.model.Comment
 
 @Composable
-fun RootScreen(windowState: WindowState, modifier: Modifier = Modifier) {
+fun RootScreen(
+    windowState: WindowState,
+    getCommentUseCase: GetCommentUseCase,
+    modifier: Modifier = Modifier,
+) {
     val scrollingComments = remember { mutableStateListOf<Comment>() }
     val specialComments = remember { mutableStateListOf<Comment>() }
-    val getCommentUseCase = remember { GetCommentUseCase() }
     val density = LocalDensity.current.density
     val screenWidthPx = windowState.size.width.value * density
     val screenHeightPx = windowState.size.height.value * density
@@ -29,7 +32,7 @@ fun RootScreen(windowState: WindowState, modifier: Modifier = Modifier) {
                 val newSpecialComment = Comment(System.nanoTime(), commentData.text, 0f, true)
                 specialComments.add(newSpecialComment)
                 // Remove after a delay
-                launch { 
+                launch {
                     delay(10_000L) // Display for 5 seconds
                     specialComments.remove(newSpecialComment)
                 }

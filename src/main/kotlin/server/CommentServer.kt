@@ -20,7 +20,7 @@ class CommentServer {
     fun start() {
         embeddedServer(CIO, port = 8080) {
             install(ContentNegotiation) {
-                json()
+                json(json = kotlinx.serialization.json.Json { ignoreUnknownKeys = true })
             }
             routing {
                 post("/comment") {

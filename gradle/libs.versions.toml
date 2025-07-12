@@ -1,5 +1,6 @@
 [versions]
-ktor = "3.2.1"
+ktor = "2.3.12"
+kotlinx-serialization = "1.6.3"
 
 [libraries]
 ktor-server-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }

@@ -9,6 +9,7 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.serialization.json.Json
 import model.CommentData
 import server.model.CommentRequest
 
@@ -20,7 +21,7 @@ class CommentServer {
     fun start() {
         embeddedServer(CIO, port = 8080) {
             install(ContentNegotiation) {
-                json(json = kotlinx.serialization.json.Json { ignoreUnknownKeys = true })
+                json(json = Json { ignoreUnknownKeys = true })
             }
             routing {
                 post("/comment") {

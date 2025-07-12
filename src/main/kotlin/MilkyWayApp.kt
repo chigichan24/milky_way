@@ -16,9 +16,9 @@ import ui.RootScreen
 import usecase.GetCommentUseCase
 
 @Composable
-fun MilkyWayApp(windowState: WindowState, getCommentUseCase: GetCommentUseCase) {
+fun MilkyWayApp(windowState: WindowState, getCommentUseCase: GetCommentUseCase, windowY: Int) {
     MaterialTheme(colors = MaterialTheme.colors.copy(background = Color.Transparent)) {
-        RootScreen(windowState, getCommentUseCase, modifier = Modifier.border(0.5.dp, Color.Gray))
+        RootScreen(windowState, getCommentUseCase, windowY, modifier = Modifier.border(0.5.dp, Color.Gray))
     }
 }
 
@@ -47,6 +47,6 @@ fun main() = application {
         focusable = false,
         alwaysOnTop = true
     ) {
-        MilkyWayApp(state, getCommentUseCase)
+        MilkyWayApp(state, getCommentUseCase, windowY)
     }
 }

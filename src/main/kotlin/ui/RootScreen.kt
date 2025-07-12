@@ -17,13 +17,13 @@ import ui.model.Comment
 fun RootScreen(
     windowState: WindowState,
     getCommentUseCase: GetCommentUseCase,
+    windowY: Int,
     modifier: Modifier = Modifier,
 ) {
     val scrollingComments = remember { mutableStateListOf<Comment>() }
     val specialComments = remember { mutableStateListOf<Comment>() }
     val density = LocalDensity.current.density
     val screenWidthPx = windowState.size.width.value * density
-    val screenHeightPx = windowState.size.height.value * density
 
     // Collect new comments from the use case
     LaunchedEffect(Unit) {
@@ -37,7 +37,7 @@ fun RootScreen(
                     specialComments.remove(newSpecialComment)
                 }
             } else {
-                val randomY = Random.nextFloat() * (screenHeightPx - 50.dp.value * density).coerceAtLeast(0f) // Ensure positive height
+                val randomY = Random.nextFloat() * (windowY - 50.dp.value * density).coerceAtLeast(0f) // Ensure positive height
                 scrollingComments.add(Comment(System.nanoTime(), commentData.text, randomY))
             }
         }

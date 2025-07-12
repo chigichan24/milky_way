@@ -21,6 +21,9 @@ fun MilkyWayApp(windowState: WindowState) {
 }
 
 fun main() = application {
+    val commentServer = server.CommentServer()
+    commentServer.start()
+
     val screenSize: Dimension = Toolkit.getDefaultToolkit().screenSize
     val screenHeight = screenSize.height
     val screenWidth = screenSize.width

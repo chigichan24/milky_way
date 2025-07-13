@@ -1,5 +1,5 @@
 package string
 
 object StringProvider {
-    const val appName = "MilkyWay"
+    const val APP_NAME = "MilkyWay"
 }

@@ -6,12 +6,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import usecase.GetCommentUseCase
-import kotlin.random.Random
 import androidx.compose.ui.window.WindowState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ui.model.Comment
+import usecase.GetCommentUseCase
+import kotlin.random.Random
 
 @Composable
 fun RootScreen(
@@ -54,7 +54,7 @@ fun RootScreen(
                         // Remove the comment from the list when its animation finishes
                         scrollingComments.remove(comment)
                     },
-                    modifier = Modifier
+                    modifier = Modifier,
                 )
             }
         }
@@ -62,7 +62,7 @@ fun RootScreen(
         // Display special comments at the bottom center, stacked
         Column(
             modifier = Modifier.align(Alignment.BottomCenter),
-            verticalArrangement = Arrangement.Bottom
+            verticalArrangement = Arrangement.Bottom,
         ) {
             specialComments.forEachIndexed { index, comment ->
                 key(comment.id) {

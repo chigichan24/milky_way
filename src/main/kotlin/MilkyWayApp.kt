@@ -1,5 +1,3 @@
-import java.awt.Dimension
-import java.awt.Toolkit
 import androidx.compose.foundation.border
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -14,39 +12,53 @@ import server.CommentServer
 import string.StringProvider
 import ui.RootScreen
 import usecase.GetCommentUseCase
+import java.awt.Dimension
+import java.awt.Toolkit
 
 @Composable
-fun MilkyWayApp(windowState: WindowState, getCommentUseCase: GetCommentUseCase, windowY: Int) {
+fun MilkyWayApp(
+    windowState: WindowState,
+    getCommentUseCase: GetCommentUseCase,
+    windowY: Int,
+) {
     MaterialTheme(colors = MaterialTheme.colors.copy(background = Color.Transparent)) {
         RootScreen(windowState, getCommentUseCase, windowY, modifier = Modifier.border(0.5.dp, Color.Gray))
     }
 }
 
-fun main() = application {
-    val commentServer = CommentServer()
-    commentServer.start()
-    val getCommentUseCase = GetCommentUseCase(commentServer)
+fun main() =
+    application {
+        val commentServer = CommentServer()
+        commentServer.start()
+        val getCommentUseCase = GetCommentUseCase(commentServer)
 
-    val screenSize: Dimension = Toolkit.getDefaultToolkit().screenSize
-    val screenHeight = screenSize.height
-    val screenWidth = screenSize.width
+        val screenSize: Dimension = Toolkit.getDefaultToolkit().screenSize
+        val screenHeight = screenSize.height
+        val screenWidth = screenSize.width
 
-    val windowHeight = screenHeight / 2
-    val windowWidth = screenWidth
+        val windowHeight = screenHeight / 2
+        val windowWidth = screenWidth
 
-    val windowX = 0
-    val windowY = screenHeight / 2
+        val windowX = 0
+        val windowY = screenHeight / 2
 
-    val state = rememberWindowState(width = windowWidth.dp, height = windowHeight.dp, position = androidx.compose.ui.window.WindowPosition(windowX.dp, windowY.dp))
-    Window(
-        onCloseRequest = ::exitApplication,
-        title = StringProvider.appName,
-        state = state,
-        undecorated = true,
-        transparent = true,
-        focusable = false,
-        alwaysOnTop = true
-    ) {
-        MilkyWayApp(state, getCommentUseCase, windowY)
+        val state =
+            rememberWindowState(
+                width = windowWidth.dp,
+                height = windowHeight.dp,
+                position =
+                    androidx.compose.ui.window
+                        .WindowPosition(windowX.dp, windowY.dp),
+            )
+        Window(
+            onCloseRequest = ::exitApplication,
+            title = StringProvider.APP_NAME,
+            state = state,
+            undecorated = true,
+            transparent = true,
+            focusable = false,
+            alwaysOnTop = true,
+        ) {
+            MilkyWayApp(state, getCommentUseCase, windowY)
+        }
     }
-}

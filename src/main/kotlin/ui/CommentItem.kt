@@ -17,14 +17,19 @@ import androidx.compose.ui.unit.sp
 import ui.model.Comment
 
 @Composable
-fun CommentItem(comment: Comment, screenWidthPx: Float, onAnimationEnd: () -> Unit, modifier: Modifier = Modifier) {
+fun CommentItem(
+    comment: Comment,
+    screenWidthPx: Float,
+    onAnimationEnd: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     val xOffset = remember { Animatable(screenWidthPx) }
     val textWidthEstimate = comment.text.length * 10.dp.value * LocalDensity.current.density // Rough estimate
 
     LaunchedEffect(comment.id) {
         xOffset.animateTo(
             targetValue = -textWidthEstimate, // Animate until it's off-screen
-            animationSpec = tween(durationMillis = 10000, easing = LinearEasing)
+            animationSpec = tween(durationMillis = 10000, easing = LinearEasing),
         )
         onAnimationEnd() // Call callback when animation is complete
     }
@@ -33,8 +38,9 @@ fun CommentItem(comment: Comment, screenWidthPx: Float, onAnimationEnd: () -> Un
         text = comment.text,
         fontSize = 30.sp,
         color = Color.White,
-        modifier = modifier
-            .offset(x = xOffset.value.dp, y = comment.yOffset.dp)
-            .wrapContentSize()
+        modifier =
+            modifier
+                .offset(x = xOffset.value.dp, y = comment.yOffset.dp)
+                .wrapContentSize(),
     )
 }

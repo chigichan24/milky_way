@@ -5,7 +5,7 @@ import model.CommentData
 import server.CommentServer
 
 class GetCommentUseCase(
-    private val commentServer: CommentServer
+    private val commentServer: CommentServer,
 ) {
     fun execute(): Flow<CommentData> = commentServer.commentFlow
 }

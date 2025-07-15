@@ -3,6 +3,7 @@ package ui
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.Text
@@ -37,10 +38,11 @@ fun CommentItem(
     Text(
         text = comment.text,
         fontSize = 30.sp,
-        color = Color.White,
+        color = Color.Gray,
         modifier =
             modifier
                 .offset(x = xOffset.value.dp, y = comment.yOffset.dp)
-                .wrapContentSize(),
+                .wrapContentSize()
+                .background(Color(1f, 1f, 1f, 0.1f)),
     )
 }

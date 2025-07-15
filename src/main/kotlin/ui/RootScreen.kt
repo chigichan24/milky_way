@@ -34,7 +34,7 @@ fun RootScreen(
 
     // Collect new comments from the use case
     LaunchedEffect(Unit) {
-        getCommentUseCase.execute().collect { commentData ->
+        getCommentUseCase().collect { commentData ->
             if (commentData.isSpecial) {
                 val newSpecialComment = Comment(System.nanoTime(), commentData.text, 0f, true)
                 specialComments.add(newSpecialComment)

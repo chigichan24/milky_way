@@ -7,6 +7,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
+import repository.SpecialWordRepository
 import server.CommentServer
 import string.StringProvider
 import ui.RootScreen
@@ -28,7 +29,7 @@ fun main() =
     application {
         val commentServer = CommentServer()
         commentServer.start()
-        val getCommentUseCase = GetCommentUseCase(commentServer)
+        val getCommentUseCase = GetCommentUseCase(commentServer, SpecialWordRepository)
 
         val windowConfig = WindowStateProvider.createDefaultWindowConfig()
         val state = WindowStateProvider.createDefaultWindowState()

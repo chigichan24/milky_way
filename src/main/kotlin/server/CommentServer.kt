@@ -11,11 +11,10 @@ import io.ktor.server.routing.post
 import io.ktor.server.routing.routing
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.serialization.json.Json
-import model.CommentData
 import server.model.CommentRequest
 
 class CommentServer {
-    private val _commentFlow = MutableSharedFlow<CommentData>()
+    private val _commentFlow = MutableSharedFlow<String>()
     val commentFlow = _commentFlow
 
     fun start() {
@@ -26,7 +25,7 @@ class CommentServer {
             routing {
                 post("/comment") {
                     val request = call.receive<CommentRequest>()
-                    _commentFlow.emit(CommentData(request.text))
+                    _commentFlow.emit(request.text)
                     call.respond(request)
                 }
             }

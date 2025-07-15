@@ -7,8 +7,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
-import repository.SpecialWordRepository
-import server.CommentServer
+import di.AppContainer
 import string.StringProvider
 import ui.RootScreen
 import usecase.GetCommentUseCase
@@ -26,12 +25,9 @@ fun MilkyWayApp(
 }
 
 fun main() {
-    val commentServer = CommentServer()
-    commentServer.start()
+    val appContainer = AppContainer()
 
     application {
-        val getCommentUseCase = GetCommentUseCase(commentServer, SpecialWordRepository)
-
         val windowConfig = WindowStateProvider.createDefaultWindowConfig()
         val state = WindowStateProvider.createDefaultWindowState()
 
@@ -44,7 +40,7 @@ fun main() {
             focusable = false,
             alwaysOnTop = windowConfig.alwaysOnTop,
         ) {
-            MilkyWayApp(state, getCommentUseCase, windowConfig.y)
+            MilkyWayApp(state, appContainer.getCommentUseCase, windowConfig.y)
         }
     }
 }

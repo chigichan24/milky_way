@@ -10,17 +10,16 @@ import androidx.compose.ui.window.application
 import di.AppContainer
 import string.StringProvider
 import ui.RootScreen
-import usecase.GetCommentUseCase
 import window.WindowStateProvider
 
 @Composable
 fun MilkyWayApp(
     windowState: WindowState,
-    getCommentUseCase: GetCommentUseCase,
+    appContainer: AppContainer,
     windowY: Int,
 ) {
     MaterialTheme(colors = MaterialTheme.colors.copy(background = Color.Transparent)) {
-        RootScreen(windowState, getCommentUseCase, windowY, modifier = Modifier.border(0.5.dp, Color.Gray))
+        RootScreen(windowState, appContainer.getCommentUseCase, windowY, modifier = Modifier.border(0.5.dp, Color.Gray))
     }
 }
 
@@ -40,7 +39,7 @@ fun main() {
             focusable = false,
             alwaysOnTop = windowConfig.alwaysOnTop,
         ) {
-            MilkyWayApp(state, appContainer.getCommentUseCase, windowConfig.y)
+            MilkyWayApp(state, appContainer, windowConfig.y)
         }
     }
 }

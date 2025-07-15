@@ -51,20 +51,13 @@ fun RootScreen(
     }
 
     Box(modifier = modifier.fillMaxSize()) {
-        // Use a key for each CommentItem to ensure proper recomposition and animation
-        scrollingComments.forEach { comment ->
-            key(comment.id) {
-                CommentItem(
-                    comment = comment,
-                    screenWidthPx = screenWidthPx,
-                    onAnimationEnd = {
-                        // Remove the comment from the list when its animation finishes
-                        scrollingComments.remove(comment)
-                    },
-                    modifier = Modifier,
-                )
-            }
-        }
+        CommentList(
+            comments = scrollingComments,
+            screenWidthPx = screenWidthPx,
+            onCommentRemove = { comment ->
+                scrollingComments.remove(comment)
+            },
+        )
 
         // Display special comments at the bottom center, stacked
         Column(

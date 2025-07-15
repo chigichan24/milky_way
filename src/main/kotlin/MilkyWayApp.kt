@@ -25,10 +25,11 @@ fun MilkyWayApp(
     }
 }
 
-fun main() =
+fun main() {
+    val commentServer = CommentServer()
+    commentServer.start()
+
     application {
-        val commentServer = CommentServer()
-        commentServer.start()
         val getCommentUseCase = GetCommentUseCase(commentServer, SpecialWordRepository)
 
         val windowConfig = WindowStateProvider.createDefaultWindowConfig()
@@ -46,3 +47,4 @@ fun main() =
             MilkyWayApp(state, getCommentUseCase, windowConfig.y)
         }
     }
+}

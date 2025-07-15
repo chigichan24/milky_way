@@ -57,6 +57,7 @@ fun RootScreen(
             onCommentRemove = { comment ->
                 scrollingComments.remove(comment)
             },
+            modifier = Modifier.fillMaxSize(),
         )
 
         // Display special comments at the bottom center, stacked

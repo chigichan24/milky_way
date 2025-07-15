@@ -7,13 +7,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
-import androidx.compose.ui.window.rememberWindowState
 import server.CommentServer
 import string.StringProvider
 import ui.RootScreen
 import usecase.GetCommentUseCase
-import java.awt.Dimension
-import java.awt.Toolkit
+import window.WindowStateProvider
 
 @Composable
 fun MilkyWayApp(
@@ -32,24 +30,9 @@ fun main() =
         commentServer.start()
         val getCommentUseCase = GetCommentUseCase(commentServer)
 
-        val screenSize: Dimension = Toolkit.getDefaultToolkit().screenSize
-        val screenHeight = screenSize.height
-        val screenWidth = screenSize.width
+        val windowConfig = WindowStateProvider.createDefaultWindowConfig()
+        val state = WindowStateProvider.createDefaultWindowState()
 
-        val windowHeight = screenHeight / 2
-        val windowWidth = screenWidth
-
-        val windowX = 0
-        val windowY = screenHeight / 2
-
-        val state =
-            rememberWindowState(
-                width = windowWidth.dp,
-                height = windowHeight.dp,
-                position =
-                    androidx.compose.ui.window
-                        .WindowPosition(windowX.dp, windowY.dp),
-            )
         Window(
             onCloseRequest = ::exitApplication,
             title = StringProvider.APP_NAME,
@@ -57,8 +40,8 @@ fun main() =
             undecorated = true,
             transparent = true,
             focusable = false,
-            alwaysOnTop = true,
+            alwaysOnTop = windowConfig.alwaysOnTop,
         ) {
-            MilkyWayApp(state, getCommentUseCase, windowY)
+            MilkyWayApp(state, getCommentUseCase, windowConfig.y)
         }
     }

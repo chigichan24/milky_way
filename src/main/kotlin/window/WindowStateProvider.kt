@@ -1,5 +1,6 @@
 package window
 
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.WindowState
@@ -11,9 +12,10 @@ object WindowStateProvider {
     private val screenHeight = screenSize.height
     private val screenWidth = screenSize.width
 
+    @Composable
     fun createDefaultWindowState(): WindowState {
         val config = createDefaultWindowConfig()
-        return WindowState(
+        return rememberWindowState(
             width = config.width.dp,
             height = config.height.dp,
             position = WindowPosition(config.x.dp, config.y.dp),
